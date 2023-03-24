@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "d0f80b64-2631-44f3-8220-0cfad05ac4b4",
+		"name": "Students_Chaining",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23681609"
+	},
+	"item": [
+		{
+			"name": "getAllStudents",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{resourcePath}}",
+					"host": [
+						"{{resourcePath}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createStudent",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const random = Math.random().toString(36).substring(2,7);\r",
+							"console.log(random);\r",
+							"\r",
+							"pm.collectionVariables.set(\"col_name\",random);\r",
+							"pm.collectionVariables.set(\"col_location\",\"loc_\"+random);\r",
+							"pm.collectionVariables.set(\"col_course1\",\"course1_\"+random);\r",
+							"pm.collectionVariables.set(\"col_course2\",\"course2_\"+random);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsObject=JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"col_id\",jsObject.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{col_name}}\",\r\n    \"location\":\"{{col_location}}\",\r\n    \"languages\":[\"{{col_course1}}\",\"{{col_course2}}\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{resourcePath}}",
+					"host": [
+						"{{resourcePath}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSingleStudent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsObject=JSON.parse(responseBody);\r",
+							"pm.test(\"data check\", function(){\r",
+							"    pm.expect(jsObject.id).to.eql(pm.collectionVariables.get(\"col_id\"));\r",
+							"    pm.expect(jsObject.name).to.eql(pm.collectionVariables.get(\"col_name\"))\r",
+							"    pm.expect(jsObject.location).to.eql(pm.collectionVariables.get(\"col_location\"));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{resourcePath}}/{{col_id}}",
+					"host": [
+						"{{resourcePath}}"
+					],
+					"path": [
+						"{{col_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateStudentData",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const random=Math.random().toString(36).substring(2,7);\r",
+							"\r",
+							"pm.collectionVariables.set(\"col_updatedName\",\"update_\"+random);\r",
+							"pm.collectionVariables.set(\"col_updatedLocation\",\"update_\"+random);\r",
+							"pm.collectionVariables.set(\"col_updatedCourse1\",\"update_\"+random);\r",
+							"pm.collectionVariables.set(\"col_updatedCourse2\",\"update_\"+random);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{col_updatedName}}\",\r\n    \"location\": \"{{col_updatedLocation}}\",\r\n    \"languages\": [\r\n        \"{{col_updatedCourse1}}\",\r\n        \"{{col_updatedCourse2}}\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{resourcePath}}/{{col_id}}",
+					"host": [
+						"{{resourcePath}}"
+					],
+					"path": [
+						"{{col_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatePartialStudentData",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"location\":\"Patch_Banglaore\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{resourcePath}}/{{col_id}}",
+					"host": [
+						"{{resourcePath}}"
+					],
+					"path": [
+						"{{col_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteStudent",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.unset(\"col_course1\");\r",
+							"pm.collectionVariables.unset(\"col_course2\");\r",
+							"pm.collectionVariables.unset(\"col_id\");\r",
+							"pm.collectionVariables.unset(\"col_location\");\r",
+							"pm.collectionVariables.unset(\"col_name\");\r",
+							"pm.collectionVariables.unset(\"col_updatedCourse1\");\r",
+							"pm.collectionVariables.unset(\"col_updatedCourse2\");\r",
+							"pm.collectionVariables.unset(\"col_updatedLocation\");\r",
+							"pm.collectionVariables.unset(\"col_updatedName\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{resourcePath}}/{{col_id}}",
+					"host": [
+						"{{resourcePath}}"
+					],
+					"path": [
+						"{{col_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "resourcePath",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,87 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Rajappa",
+      "location": "Halli Mysore",
+      "languages": [
+        "Kannada",
+        "English"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Mani",
+      "location": "Govindanahalli",
+      "languages": [
+        "Kannada"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Pruthvi",
+      "location": "Mysore",
+      "languages": [
+        "Kannada",
+        "English",
+        "Hindi"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Swetha",
+      "location": "Mysore",
+      "languages": [
+        "Kannada",
+        "English",
+        "Hindi"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Shilpa",
+      "location": "Mysore",
+      "languages": [
+        "Kannada",
+        "English",
+        "Hindi"
+      ]
+    },
+    {
+      "name": "Ganesh",
+      "location": "Bangalore",
+      "languages": [
+        "Kannada",
+        "English",
+        "Hindi"
+      ],
+      "id": 6
+    },
+    {
+      "name": "Kushik Pruthvi Prasad",
+      "location": "Bangalore",
+      "id": 7,
+      "languages": [
+        "Kannada"
+      ]
+    },
+    {
+      "name": "update_m855g",
+      "location": "Patch_Banglaore",
+      "languages": [
+        "update_m855g",
+        "update_m855g"
+      ],
+      "id": 8
+    },
+    {
+      "name": "update_hsw8h",
+      "location": "Patch_Banglaore",
+      "languages": [
+        "update_hsw8h",
+        "update_hsw8h"
+      ],
+      "id": 9
+    }
+  ]
+}

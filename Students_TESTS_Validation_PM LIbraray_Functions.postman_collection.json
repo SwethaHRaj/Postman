@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "dabe1948-b2c0-4ff6-b0d3-cbd96405dfad",
+		"name": "Students_TESTS_Validation_PM LIbraray_Functions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23681609"
+	},
+	"item": [
+		{
+			"name": "getSingleStudent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonBody=pm.response.json();\r",
+							"\r",
+							"//check for dataType and value\r",
+							"pm.test(\"Check Datatype and value\",function(){\r",
+							"    pm.expect(jsonBody).to.be.an(\"Object\");\r",
+							"    pm.expect(jsonBody.name).to.be.a(\"String\");\r",
+							"    pm.expect(jsonBody.id).to.be.a(\"number\");\r",
+							"    pm.expect(jsonBody.location).to.be.a(\"String\");\r",
+							"    pm.expect(jsonBody.languages).to.be.a(\"array\");\r",
+							"        pm.expect(jsonBody.languages[0]).to.eql(\"Kannada\");\r",
+							"        pm.expect(jsonBody.languages[1]).to.eql(\"English\");\r",
+							"    pm.expect(jsonBody.id).to.eql(1);\r",
+							"    pm.expect(jsonBody.name).to.eql(\"Rajappa\");\r",
+							"    pm.expect(jsonBody.location).to.eql(\"Halli Mysore\");\r",
+							"    pm.expect(jsonBody.languages[0]).to.eql(\"Kannada\");\r",
+							"    pm.expect(jsonBody.languages[1]).to.eql(\"English\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"var schema={\r",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"id\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"name\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"location\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"languages\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"id\",\r",
+							"    \"name\",\r",
+							"    \"location\",\r",
+							"    \"languages\"\r",
+							"  ]\r",
+							"};\r",
+							"//Schema valiation\r",
+							"pm.test(\"Check Schema\",function(){\r",
+							"    pm.expect(tv4.validate(jsonBody, schema)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"//----------------------\r",
+							"\r",
+							"//Check Status Code\r",
+							"pm.test(\"Status Code:200\", function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"//Check Sataus Content\r",
+							"pm.test(\"Stataus Code Text:OK\", function(){\r",
+							"    pm.response.to.have.status(\"OK\")\r",
+							"});\r",
+							"\r",
+							"//Check Response Time\r",
+							"pm.test(\"Response Time<200\", function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200); \r",
+							"    //.below or.be.below also worked\r",
+							"});\r",
+							"\r",
+							"//Check Presence of Header key\r",
+							"pm.test(\"Presence of Header:true\",function(){\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"//Check Header Value \r",
+							"pm.test(\"Header Value:application/json; charset=utf-8\",function(){\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).equals(\"application/json; charset=utf-8\")\r",
+							"});\r",
+							"/*\r",
+							"//Check Cookie presence\r",
+							"pm.test(\"Presence of Cookie:Language\",function(){\r",
+							"    pm.expect(pm.cookies.has(\"Language\")).to.be.true\r",
+							"});\r",
+							"\r",
+							"//Check Cookie Value\r",
+							"pm.test(\"Cookie Language value:----\",function(){\r",
+							"    pm.expect(pm.response.cookies.get(\"Language\")).equals(\"----\")\r",
+							"});\r",
+							"*/\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllStudents",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createStudent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"sdf\",\r\n    \"location\": \"asdgdsg\",\r\n    \"languages\": [\r\n        \"marathi\",\r\n        \"shdgfsd\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateStudentData",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"sdsdg\",\r\n    \"location\": \"sdfsdf\",\r\n    \"languages\": [\r\n        \"asdfa\",\r\n        \"sdfsdf\",\r\n        \"kjhsidfn\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatePartialStudentData",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"location\":\"Banglaore\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteStudent",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"8"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
